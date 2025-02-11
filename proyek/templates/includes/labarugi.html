@@ -1,0 +1,52 @@
+{% load humanize %}
+<div class="payments">
+    <div class="title">
+        <h3>Laba Rugi</h3>
+        <div class="ikon">
+            <button onabort="printPDF()" class="pdf">
+                <i class="fas fa-file-pdf"></i>
+            </button>
+            <i class="fas fa-file-excel"></i>
+        </div>
+    </div>
+    <table>
+        <thead>
+            <tr class="title-table">
+                <th>Akun</th>
+                <th>Balance</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Pendapatan -->
+            {% for akun, data in ledgers_pendapatan.items %}
+            <tr>
+                <td>{{ akun }}</td>
+                <td>Rp.{{ data.balance |intcomma }}</td>
+            </tr>
+            {% endfor %}
+            <tr class="title-table">
+                <td>Total Pendapatan</td>
+                <td>Rp.{{ total_pendapatan|intcomma }}</td>
+            </tr>
+        
+            <!-- Beban -->
+            {% for akun, data in ledgers_beban.items %}
+            <tr>
+                <td>{{ akun }}</td>
+                <td>Rp.{{ data.balance|intcomma }}</td>
+            </tr>
+            {% endfor %}
+            <tr class="title-table">
+                <td>Total Beban</td>
+                <td>Rp.{{ total_beban|intcomma }}</td>
+            </tr>
+        
+            <!-- Laba Rugi -->
+            <tr class="title-table">
+                <td>Laba Rugi</td>
+                <td>Rp.{{ laba_rugi|intcomma }}</td>
+            </tr>
+        </tbody>
+        
+    </table>
+</div>

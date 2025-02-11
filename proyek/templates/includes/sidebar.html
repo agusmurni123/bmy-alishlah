@@ -1,0 +1,15 @@
+<div class="sidebar">
+    <div class="brand">
+        <i class="fa-solid fa-qrcode"></i>&nbsp;&nbsp;
+        <h1>{{user.username}}</h1>
+    </div>
+    <ul>
+        <li><i class="fa-solid fa-gauge"></i>&nbsp;&nbsp;</fa-gauge><span><a href="{% url 'user:beranda' %}">Dashboard</a></span></li>
+        <li><i class="fas fa-hands-helping"></i>&nbsp;&nbsp;<span><a href="{% url 'user:daftar_akun' %}">Daftar Akun</a></span></li>
+        <li><i class="fa-solid fa-hand-holding-dollar"></i>&nbsp;&nbsp;<span><a href="{% url 'user:jurnal' %}">Jurnal Umum</a></span></li>
+        <li><i class="fa-regular fa-circle-question"></i>&nbsp;&nbsp;<span><a href="{% url 'user:buku_besar' %}">Buku Besar</a></span></li>
+        <li><i class="fa-solid fa-gear"></i>&nbsp;&nbsp;<span><a href="{% url 'user:laba_rugi' %}">Laba Rugi</a></span></li>
+        <li><i class="fas fa-sign-out-alt"></i>&nbsp;&nbsp;<span><a href="{% url 'user:neraca' %}">Neraca</a></span></li>
+        <li><i class="fas fa-sign-out-alt"></i>&nbsp;&nbsp;<span><a href="{% url 'user:logout' %}">Logout</a></span></li>
+    </ul>
+</div>

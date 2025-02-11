@@ -1,0 +1,74 @@
+{% load static %}
+{% load humanize %}
+<div class="payments">
+    <div class="title">
+        <form action="{% url 'user:jurnal' %}" method="get">
+            <input type="date" name="tanggal" id="">
+            <input type="number" name="bulan" id="" min="1" max="12" placeholder="Bulan">
+            <input type="number" name="tahun" id="" min="2000" max="2099" placeholder="Tahun">
+            <button type="submit">Filter</button>
+        </form>
+        <form action="{% url 'user:reset_filter' %}" method="get">
+            <button type="submit">Reset</button>
+        </form>
+        <h3>{{ total_debit| intcomma }}</h3>
+        <h3>{{ total_kredit | intcomma }}</h3>
+        <h3>{{ balance|intcomma }}</h3>
+        {% if balance != 0 %}
+        <p style="color: red;">Tidak Balance</p>
+        {% else %}
+        <p style="color: limegreen;">Balance</p>
+        {% endif %}
+        <div class="btn">
+            <i class="fa-solid fa-plus" id="jurnal"></i>
+        </div>
+    </div>
+    <table>
+        <tr class="title-table">
+            <th>No</th>
+            <th>Tanggal</th>
+            <th>Uraian</th>
+            <th>Akun</th>
+            <th>Debit</th>
+            <th>Kredit</th>
+            <th colspan="2">Action</th>
+        </tr>
+        {% for jurnal in jurnal_list %}
+        <tr class="{% if forloop.counter|divisibleby:2 %} even {% else %} odd {% endif %}">
+            <td>{{ forloop.counter }}</td>
+            <td>{{ jurnal.tanggal }}</td>
+            <td>{{ jurnal.uraian }}</td>
+            <td>{{jurnal.akun.nama_akun}}</td>
+            <td>{{jurnal.debit|intcomma}}</td>
+            <td>{{jurnal.kredit|intcomma}}</td>
+            <td>
+                <form method="post" action="{% url 'user:jurnal_delete' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="jurnal_id" value="{{ jurnal.id }}">
+                    <button type="submit"><i class="fas fa-trash"></i></button>
+                </form>                
+            </td>
+            <td>
+                <a href="{% url 'user:jurnal_edit' jurnal.id %}"><i class="fas fa-edit"></i></a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+            
+    <div class="dialog-jurnal">
+        <h4 id="close-jurnal">Close</h4>
+        <form action="{% url 'user:jurnal' %}" method="post" class="inputan">
+            {% csrf_token %}
+            <select name="akun" id="akun">
+                {% for profil in profil_list %}
+                    <option value="{{ profil.id }}">{{ profil.nama_akun }}</option>
+                {% endfor %}
+            </select>
+            <input type="date" name="tanggal" id="">
+            <input type="text" name="uraian" id="" placeholder="Uraian">
+            <input type="number" name="debit" id="" placeholder="Debit">
+            <input type="number" name="kredit" id="" placeholder="Kredit">
+            <button type="submit">Save</button>
+        </form>
+    </div>        
+</div>

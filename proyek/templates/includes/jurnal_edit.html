@@ -1,0 +1,15 @@
+<style>
+    .inputan{
+        background-color: transparent;
+    }
+</style>
+<div class="payments">
+    <h3 class="title">Form Edit</h3>
+    <form action="" method="post" class="inputan">
+        {% csrf_token %}
+        <table>
+            {{ form.as_table }}
+        </table>
+        <button type="submit">Update</button>
+    </form>
+</div>

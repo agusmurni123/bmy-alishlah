@@ -1,0 +1,45 @@
+{% load humanize %}
+<div class="payments">
+    <button class="pdf" onclick="printPDF()"><i class="fas fa-file-pdf"></i></button>
+    
+    {% for account_name, ledger in ledgers.items %}
+    <h3 class="title">{{account_name}}</h3>
+    <table>
+        <thead>
+            <tr class="title-table">
+                <th>No</th>
+                <th>Uraian</th>
+                <th>Debit</th>
+                <th>Kredit</th>
+                <th>Saldo</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% with 1 as counter %}
+            {% for transaction in ledger.transactions %}
+                <tr>
+                    <td>{{forloop.parentloop.counter}}.{{forloop.counter}}</td>
+                    <td>{{ transaction.uraian }}</td>
+                    <td>{{ transaction.debit|intcomma }}</td>
+                    <td>{{ transaction.kredit|intcomma }}</td>
+                    <td>{{ transaction.balance|intcomma }}</td>
+                </tr>
+            {% endfor %}
+            {% endwith %}
+            {% if not ledger.transactions %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td colspan="4">Tidak ada transaksi</td>
+            </tr>
+            {% endif %}
+            <tr class="title-table">
+                <td><strong>Total</strong></td>
+                <td><strong></strong></td>
+                <td><strong>{{ ledger.total_debit|intcomma }}</strong></td>
+                <td><strong>{{ ledger.total_kredit|intcomma }}</strong></td>
+                <td><strong>{{ ledger.balance|intcomma }}</strong></td>
+            </tr>
+        </tbody>
+    </table>
+    {% endfor %}
+</div>

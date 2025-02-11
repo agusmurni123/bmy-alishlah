@@ -1,0 +1,65 @@
+<div class="payments">
+    <div class="students">
+        <div class="title">
+            <h2>Daftar Akun</h2>
+            <div class="btn">
+                <i class="fa-solid fa-plus" id="profil"></i>
+            </div>
+        </div>
+        <table>
+            <tr class="title-table">
+                <th>No</th>
+                <th>Nomor</th>
+                <th>Nama Akun</th>
+                <th>Pos</th>
+                <th>Master Akun</th>
+                <th>Saldo Normal</th>
+                <th colspan="2">Action</th>
+            </tr>
+            {% for item in profil_list %}
+            <tr class="{% if forloop.counter|divisibleby:2 %} even {% else %} odd {% endif %}">
+                <td>{{ forloop.counter }}</td>
+                <td>{{ item.nomor }}</td>
+                <td>{{ item.nama_akun }}</td>
+                <td>{{ item.pos }}</td>
+                <td>{{ item.master_akun }}</td>
+                <td>{{ item.saldo_normal }}</td>
+                <td>
+                    <form action="{% url 'user:akun_delete' %}" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="akun_id" value="{{ item.id }}">
+                        <button type="submit"><i class="fas fa-trash"></i></button>
+                    </form>
+                </td>
+                <td><a href="{% url 'user:akun_edit' item.id %}"><i class="fas fa-edit"></i></a></td>
+            </tr>
+            {% endfor %}
+        </table>
+        <div class="dialog-form">
+            <h4 id="close-akun">Close</h4>
+            <form action="{% url 'user:daftar_akun' %}" method="post" class="inputan">
+                {% csrf_token %}
+                <input type="text" name="nama_akun" id="" placeholder="Nama Akun">
+                <input type="text" name="nomor" id="" placeholder="Nomor Akun">
+                <select name="pos" id="pos">
+                    {% for choice in pos_choices %}
+                    <option value="{{ choice.0 }}">{{ choice.1 }}</option>
+                    {% endfor %}
+                </select>
+                <select name="master_akun" id="master_akun">
+                    {% for choice in master_choices %}
+                    <option value="{{ choice.0 }}">{{ choice.1 }}</option>
+                    {% endfor %}
+                </select>
+                <select name="saldo_normal" id="sn_choices">
+                    {% for choice in sn_choices %}
+                    <option value="{{ choice.0 }}">{{ choice.1 }}</option>
+                    {% endfor %}
+                </select>
+                
+                <button type="submit">Save</button>
+            </form>
+        </div>    
+    </div>
+</div>
+

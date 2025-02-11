@@ -1,0 +1,11 @@
+{
+    "bulds" : [{
+        "src" : "proyek/wsgi.py",
+        "user": "@vercel/python",
+        "config": {"maxLambdaSize": "15mb", "runtime": "python3.12"}
+    }],
+    "routes":[{
+        "src":"/(.*)",
+        "dest":"proyek/wsgi.py"
+    }]
+}

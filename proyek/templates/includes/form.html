@@ -1,0 +1,18 @@
+<div class="form">
+    <form action="" method="post" class="inputan">
+        <div class="nav-login">
+            <h3>{% if request.path == '/register/' %} Form pendaftaran {% else %} Form login {% endif %}</h3>
+            <ul class="ul-form-login">
+                <li>
+                    <a href="{% url 'user:register' %}">Daftar</a>
+                </li>
+                <li>
+                    <a href="{% url 'user:logi_view' %}">Login</a>
+                </li>
+            </ul> 
+        </div>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Submit</button>
+    </form> 
+</div>
