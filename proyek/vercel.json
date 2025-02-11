@@ -8,4 +8,7 @@
         "src":"/(.*)",
         "dest":"proyek/wsgi.py"
     }]
+    "rewrites": [
+    { "source": "/(.*)", "destination": "/" }
+  ]
 }
